@@ -66,6 +66,7 @@ public class Server {
         } catch (IOException ex) {
             System.out.println("Errore nella creazione del server");
             System.out.println("Chiusura del programma");
+            System.out.println("Prova");
         }
     }
     
