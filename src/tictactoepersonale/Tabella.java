@@ -44,7 +44,34 @@ public class Tabella {
         if(tabella[2][0].equals(segno) && tabella[2][1].equals(segno) && tabella[2][2].equals(segno)){
             return true;
         }
+        
+        if(tabella[0][0].equals(segno) && tabella[1][0].equals(segno) && tabella[2][0].equals(segno)){
+            return true;
+        }
+        if(tabella[0][1].equals(segno) && tabella[1][1].equals(segno) && tabella[2][1].equals(segno)){
+            return true;
+        }
+        if(tabella[0][2].equals(segno) && tabella[1][2].equals(segno) && tabella[2][2].equals(segno)){
+            return true;
+        }
+        
+        if(tabella[0][0].equals(segno) && tabella[1][1].equals(segno) && tabella[2][2].equals(segno)){
+            return true;
+        }
+        if(tabella[0][2].equals(segno) && tabella[1][1].equals(segno) && tabella[2][0].equals(segno)){
+            return true;
+        }
         return false;
+    }
+    
+    public boolean isFull(){
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                if(tabella[i][j].equals(""))
+                    return false;
+            }
+        }
+        return true;
     }
     
     public void inserisciPosizione(int i, int j, String segno){

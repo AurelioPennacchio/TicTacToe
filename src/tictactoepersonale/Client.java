@@ -47,12 +47,22 @@ public class Client {
                     int coo2 = Integer.parseInt(inFromUser.readLine());
                     String coordinata2 = String.valueOf(coo2);
                     System.out.println(coo2);
+                    outToServer.writeBytes(coordinata1 + "\n");
+                    outToServer.writeBytes(coordinata2 + "\n");
                     if(tabella.controlloPosizione(coo, coo2)){
                         tabella.inserisciPosizione(coo, coo2, segno);
                         tabella.stampaTabella();
+                        if(tabella.controlloVittoria(segno)){
+                            System.out.println("Hai vinto");
+                            String avversario = "hai perso";
+                            outToServer.writeBytes(avversario + "\n");
+                            clientSocket.close();
+                        }
+                        else{
+                            String avversario = "continua";
+                            outToServer.writeBytes(avversario + "\n");
+                        }
                     }
-                    outToServer.writeBytes(coordinata1 + "\n");
-                    outToServer.writeBytes(coordinata2 + "\n");
                 }
                 else{
                     if(primaLettura){
@@ -69,13 +79,18 @@ public class Client {
                         tabella.inserisciPosizione(Integer.parseInt(coordinata1), Integer.parseInt(coordinata2), "x");
                     }
                     tabella.stampaTabella();
+                    String messaggio = inFromServer.readLine();
+                    if(messaggio.equals("hai perso")){
+                        clientSocket.close();
+                        System.out.println("Socket chiuso");
+                    }
                     System.out.println(coordinata1);
                     System.out.println(coordinata2);
                 }
                     
             }
         } catch (IOException ex) {
-            System.out.println("Errore nella commessopme sul server");
+            System.out.println("Socket chiuso");
         }
     }
     

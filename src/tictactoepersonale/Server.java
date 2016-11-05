@@ -47,8 +47,10 @@ public class Server {
                     System.out.println(coordinata1);
                     String coordinata2 = inFromClient1.readLine();
                     System.out.println(coordinata2);
+                    String messaggioAvversario = inFromClient1.readLine();
                     outToClient2.writeBytes(coordinata1 + "\n");
                     outToClient2.writeBytes(coordinata2 + "\n");
+                    outToClient2.writeBytes(messaggioAvversario + "\n");
                     client1Turn = false;
                 }
                 else{
@@ -58,15 +60,15 @@ public class Server {
                     System.out.println(coordinata1);
                     String coordinata2 = inFromClient2.readLine();
                     System.out.println(coordinata2);
+                    String messaggioAvversario = inFromClient2.readLine();
                     outToClient1.writeBytes(coordinata1 + "\n");
                     outToClient1.writeBytes(coordinata2 + "\n");
+                    outToClient1.writeBytes(messaggioAvversario + "\n");
                     client1Turn = true;
                 }
             }
         } catch (IOException ex) {
-            System.out.println("Errore nella creazione del server");
-            System.out.println("Chiusura del programma");
-            System.out.println("Prova");
+            System.out.println("Server chiuso");
         }
     }
     
