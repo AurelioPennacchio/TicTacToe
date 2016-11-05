@@ -28,9 +28,16 @@ public class Client {
             Socket clientSocket = new Socket("localhost",7777);
             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            boolean primaLettura = true;
+            String segno = null;
+            Tabella tabella = new Tabella();
             while(true){
                 String sentence = inFromServer.readLine();
                 if(sentence.equals("tuo turno")){
+                    if(primaLettura){
+                        segno = "x";
+                        primaLettura = false;
+                    }
                     System.out.println("posiziona");
                     System.out.println("Scegli la prima coordinata dove posizionare il tuo segno");
                     int coo = Integer.parseInt(inFromUser.readLine());
@@ -40,13 +47,28 @@ public class Client {
                     int coo2 = Integer.parseInt(inFromUser.readLine());
                     String coordinata2 = String.valueOf(coo2);
                     System.out.println(coo2);
+                    if(tabella.controlloPosizione(coo, coo2)){
+                        tabella.inserisciPosizione(coo, coo2, segno);
+                        tabella.stampaTabella();
+                    }
                     outToServer.writeBytes(coordinata1 + "\n");
                     outToServer.writeBytes(coordinata2 + "\n");
                 }
                 else{
+                    if(primaLettura){
+                        segno = "o";
+                        primaLettura = false;
+                    }
                     System.out.println("Aspetta il tuo turno");
                     String coordinata1 = inFromServer.readLine();
                     String coordinata2 = inFromServer.readLine();
+                    if(segno.equals("x")){
+                        tabella.inserisciPosizione(Integer.parseInt(coordinata1), Integer.parseInt(coordinata2), "o");
+                    }
+                    else{
+                        tabella.inserisciPosizione(Integer.parseInt(coordinata1), Integer.parseInt(coordinata2), "x");
+                    }
+                    tabella.stampaTabella();
                     System.out.println(coordinata1);
                     System.out.println(coordinata2);
                 }
