@@ -83,6 +83,7 @@ public class Client {
                     if(messaggio.equals("hai perso")){
                         clientSocket.close();
                         System.out.println("Socket chiuso");
+                        System.exit(1);
                     }
                     System.out.println(coordinata1);
                     System.out.println(coordinata2);
